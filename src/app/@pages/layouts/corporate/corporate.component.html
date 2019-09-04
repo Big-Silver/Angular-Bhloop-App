@@ -1,0 +1,50 @@
+<!-- WRAP LAYOUT IF BOXED -->
+<div class="container" *ngIf="_boxed; else basicLayoutBlock">
+    <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</div>
+<ng-template #basicLayoutBlock>
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</ng-template>
+
+<!-- YOUR LAYOUT CONTENT GOES INSIDE HERE -->
+<ng-template #contentTpl>
+  <pg-sidebar style="z-index: 999999;">
+        <ng-template #sideBarHeader>
+            <div class="brand inline">
+                <img src="assets/img/logo.png" alt="logo" pgRetina src1x="assets/img/logo.png" src2x="assets/img/logo.png" width="100%" style="width: auto; height: 32px; object-fit: contain;">
+            </div>
+        </ng-template>
+      <ng-template #menuItems>
+          <pg-menu-items [Items]="menuLinks"></pg-menu-items>
+          <span id="lang">{{language}}</span>
+      </ng-template>
+  </pg-sidebar>
+
+  <page-container style="padding-top: 60px;">
+    <pg-header [boxed]="_boxed">
+        <a href="javascript:void(0);" class="btn-link toggle-sidebar d-lg-none pg pg-menu" style="z-index: 1000;" (click)="toggleMobileSidebar()"></a>
+        <div class="navbar navbar-expand-sm" style="position: absolute; width: 100%; z-index: 100">
+            <ul class="nav ml-auto">
+                <li class="nav-item" style="line-height: normal">
+                    <a class="nav-link disabled">{{ gymName | async }}</a>
+                </li>
+                <li class="nav-item" style="line-height: normal;">
+                    <a class="nav-link" href="" style="color:#575757" (click)="logout()" i18n="@@logOut">Logout</a>
+                </li>
+
+            </ul>
+          </div>
+        </pg-header>
+		<div class="page-content-wrapper {{_pageContainerClass}}">
+			<!-- START PAGE CONTENT -->
+			<div class="content {{_contentClass}}" style="padding-top:0px; height: 100%;">
+        <page-container>
+            <router-outlet></router-outlet>
+        </page-container>
+      </div>
+      <!-- END PAGE CONTENT -->
+    </div>
+  </page-container>
+</ng-template>
+
+<span i18n="@@menuHome" style="display: none" #menuHome>Home</span>

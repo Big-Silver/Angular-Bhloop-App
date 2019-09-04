@@ -1,0 +1,264 @@
+<div class="container-fluid d-flex flex-column h-100 d-flex">
+    <app-page-header i18n-title="@@myWorkSpace" title="Mi espacio de trabajo"></app-page-header>
+    <div id="cards-flex-container" class="row mb-3">
+        <div class="active-clients" class="col-xl-6 col-lg-4 col-md-6 col-sm-12 card pb-3">
+            <div class="title" i18n="@@MyActiveClients">
+                MIS CLIENTES ACTIVOS EN ESTE MOMENTO
+            </div>
+            <div id="activeMembersScrollbar" class="items-wrapper" [perfectScrollbar]="verticalScrollbarConfig">
+                <ng-container *ngIf="!members">
+                    <p class="loading-text">Loading...</p>
+                </ng-container>
+                <pg-list-view-container *ngIf="members" class="scrollable">
+                    <pg-list-item>
+                        <li class="chat-user-list clearfix" *ngFor="let member of members">
+                            <a pg-view-trigger parentView="chat" animationType="push-parrallax" id="{{member.Id}}"
+                               (click)="displayUserDetails($event)">
+                                <span class="thumbnail-wrapper d32 circular bg-success">
+                                    <img width="34" height="34" alt=""
+                                         onError="this.src='https://via.placeholder.com/58'" class="col-top">
+                                </span>
+                                <p class="p-l-10 ">
+                                    <span class="text-master">{{member.Name}} {{member.LastName}}</span>
+                                    <span class="block text-master hint-text fs-12">{{member.Mail}}</span>
+                                    <span class="block text-master hint-text fs-12">Last Access:
+                                        {{member.lastAccess | date}}</span>
+                                </p>
+                            </a>
+                        </li>
+                    </pg-list-item>
+                </pg-list-view-container>
+            </div>
+        </div>
+
+        <div id="my-tasks" class="col-xl-4 col-lg-6 col-md-6 col-sm-12 card pb-3 mx-0">
+            <div class="tasks-header">
+                <div>
+                    <div class="task-title" i18n="@@myTasks">MIS TAREAS</div>
+                    <div class="task-count">{{tasks.length}}
+                        <ng-container i18n="@@tasks">Tareas</ng-container>
+                    </div>
+                </div>
+                <button class="btn btn-default btn-36" (click)="openTaskModal()">Nueva Tarea</button>
+            </div>
+            <div id="tasksScrollbar" class="items-wrapper scrollable with-padding"
+                 [perfectScrollbar]="verticalScrollbarConfig">
+                <ng-container *ngIf="!tasks">
+                    <p class="loading-text">Loading...</p>
+                </ng-container>
+                <ng-container *ngIf="tasks">
+                    <div class="task-item" *ngFor="let task of tasks" (click)="openTaskModal(task)">
+                        <div (click)="onDeleteContextMenu($event, task)" class="dots-wrapper">
+                            <span class="dots-button"></span>
+                        </div>
+                        <div>
+                            <div class="task-name">{{task.title}}</div>
+                            <div class="task-description">{{task.description}}</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+                            <div class="task-days">
+                                Hace {{task.createdOn| daysAgo}} días
+                            </div>
+                            <div (click)="onPriorityContextMenu($event, task)"
+                                 *ngIf="task.priority === taskPriority.LOW" class="low-priority">
+                                <ng-container i18n="@@lowPriority">PRIORIDAD BAJA</ng-container>
+                                <img class="chevron-down" src="../../assets/img/common/chevron-right-green.svg" alt="">
+                            </div>
+                            <div (click)="onPriorityContextMenu($event, task)"
+                                 *ngIf="task.priority === taskPriority.MEDIUM" class="medium-priority">
+                                <ng-container i18n="@@mediumPriority">PRIORIDAD MEDIA</ng-container>
+                                <img class="chevron-down" src="../../assets/img/common/chevron-right-yellow.svg" alt="">
+                            </div>
+                            <div (click)="onPriorityContextMenu($event, task)"
+                                 *ngIf="task.priority === taskPriority.HIGH" class="high-priority">
+                                <ng-container i18n="@@highPriority">PRIORIDAD ALTA</ng-container>
+                                <img class="chevron-down" src="../../assets/img/common/chevron-right-red.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- <div class="p-container" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 card p-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eros leo, facilisis a augue sed, vulputate
+            imperdiet nunc. Quisque auctor ac nisl quis lacinia. Morbi ac felis eget tellus dignissim sodales vel ut
+            sapien. Cras rutrum lobortis suscipit. Proin ex diam, eleifend vitae facilisis sed, dapibus vitae elit.
+            Nulla tempor eros lacus, eu varius lorem mollis sed. In vitae porttitor odio. Nam consectetur laoreet massa,
+            vel eleifend justo egestas eu. Fusce interdum ut est at porttitor. Quisque et elit eget ligula maximus
+            congue.
+
+            Vivamus nec orci eu orci egestas convallis ac vel libero. Ut dapibus sapien ut leo blandit, porttitor
+            ultrices tortor commodo. Vestibulum iaculis sit amet urna a iaculis. Phasellus rutrum turpis nunc, quis
+            egestas odio sodales venenatis. Integer vitae condimentum justo. Etiam nisi lorem, pretium eget porttitor
+            quis, aliquet vestibulum magna. Curabitur consectetur ligula sit amet aliquet sodales. Sed dui nibh, aliquet
+            at tincidunt a, volutpat gravida sem. Pellentesque vitae vestibulum justo. Sed ac tempus leo. Nulla nec
+            lacus id dolor ullamcorper dignissim. Donec eget bibendum tortor, nec ultrices lacus. Integer porttitor vel
+            elit sed tincidunt. Etiam viverra vulputate neque a vestibulum.
+
+            Suspendisse egestas sit amet purus ac pretium. Suspendisse tempor lectus non est rhoncus feugiat. Quisque
+            tincidunt ultricies tristique. Phasellus fermentum nibh lectus. Nulla finibus dui nec sapien tristique,
+            posuere gravida tortor porta. Sed viverra magna id erat ornare ultricies. Vestibulum interdum tellus id
+            porttitor ullamcorper. Fusce volutpat libero quis velit pharetra hendrerit. Donec vulputate viverra
+            vestibulum. Sed feugiat metus varius elementum sagittis. Nulla facilisi. Fusce convallis pretium nunc,
+            malesuada pulvinar leo sollicitudin id.
+
+            Sed et tristique sapien. Donec in commodo tortor. Cras cursus nisi velit, vitae gravida enim tristique et.
+            Morbi a justo erat. Maecenas sem urna, elementum in ligula non, cursus aliquet lacus. Praesent turpis dolor,
+            gravida nec vulputate et, ultricies sed justo. Sed eget ligula ut odio scelerisque tempor. Ut rhoncus massa
+            id magna egestas congue. Suspendisse tristique est tellus, a ultrices ipsum posuere vitae. Maecenas id lacus
+            non sapien aliquam ullamcorper sed ut ante. Sed vel ex feugiat, porttitor nisl sit amet, molestie massa. In
+            ligula neque, pellentesque eget posuere eget, blandit quis ex. Curabitur interdum sapien nec arcu ultricies
+            hendrerit.
+
+            Nulla diam lorem, faucibus a blandit in, ornare sit amet massa. Sed blandit nec enim quis malesuada. Quisque
+            vel neque nisl. Cras felis ligula, pharetra ac laoreet ut, vehicula vitae elit. Vestibulum sapien nisi,
+            malesuada ut condimentum et, consectetur in est. Nunc cursus iaculis dolor ac suscipit. Fusce sed commodo
+            lorem, ut lacinia ligula. Nunc cursus erat ac rhoncus placerat. Aenean maximus tempor luctus. In dictum ex
+            nec consequat posuere. Nullam imperdiet lectus et metus tempor, sed scelerisque est varius. Fusce eget nunc
+            eget erat tristique venenatis sed vehicula tortor. Pellentesque molestie, mi vitae varius euismod, urna
+            magna rutrum nibh, tincidunt finibus neque erat sit amet justo.
+        </div> -->
+    </div>
+
+</div>
+
+<context-menu #deleteMenu>
+    <ng-template contextMenuItem (execute)="openDeleteModal()">
+        <span class="dropdown-content">
+            <img src="../../assets/img/common/close-black.svg" alt="delete icon">
+            <ng-container i18n="@@deleteInstructorTask">Eliminar Tarea</ng-container>
+        </span>
+    </ng-template>
+</context-menu>
+
+<context-menu #priorityMenu>
+    <ng-template contextMenuItem (execute)="changeTaskPriority(taskPriority.HIGH)">
+        <div class="dropdown-content-no-border">
+            <ng-container i18n="@@deleteInstructorTask">Prioridad Alta</ng-container>
+        </div>
+    </ng-template>
+    <ng-template contextMenuItem (execute)="changeTaskPriority(taskPriority.MEDIUM)">
+        <div class="dropdown-content-no-border">
+            <ng-container i18n="@@deleteInstructorTask">Prioridad Media</ng-container>
+        </div>
+    </ng-template>
+    <ng-template contextMenuItem (execute)="changeTaskPriority(taskPriority.LOW)">
+        <div class="dropdown-content-no-border">
+            <ng-container i18n="@@deleteInstructorTask">Prioridad Baja</ng-container>
+        </div>
+    </ng-template>
+</context-menu>
+
+<!-- Delete task modal -->
+<div bsModal #deleteModal="bs-modal" class="modal fade slide-up disable-scroll" tabindex="-1" role="dialog"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content-wrapper">
+            <div class="modal-content" style="padding: 45px 25px 25px 25px; height: 227px; width: 423px;">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModal.hide()"
+                        [disabled]="isLoading">
+                    <span style="color: #4C4C4C;" aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-flex">
+                    <div>
+                        <div style="color: #2C2C2C; font-size: 16px; font-weight: bold;"
+                             i18n="@@InstructorTaskWantToDeleteTitle">
+                            ¿Deseas eliminar esta Tarea?
+                        </div>
+                        <div style="color: #2C2C2C; font-size: 16px;" i18n="@@InstructorTaskWantToDeleteMessage">
+                            Esta tarea dejará de estar visible en tu espacio de trabajo.
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button i18n="@@cancel" class="btn btn-info-inverse btn-cons m-b-36" type="button"
+                                style="margin-top: 15px; border-color: #909090" (click)="deleteModal.hide()"
+                                [disabled]="isLoading">
+                            Cancelar
+                        </button>
+                        <button i18n="@@delete" class="btn btn-info btn-cons m-b-36" type="button"
+                                style="margin-top: 15px;" (click)="deleteSelectedInstructorTask()"
+                                [disabled]="isLoading">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create activity modal -->
+<div bsModal #createModal="bs-modal" class="modal fade slide-up disable-scroll" tabindex="-1" role="dialog"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content-wrapper">
+            <div class="modal-content" style="padding: 20px 20px 25px 20px; height: 494px; width: 343px;">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createModal.hide()"
+                        [disabled]="isLoading">
+                    <span style="color: #4C4C4C;" aria-hidden="true">&times;</span>
+                </button>
+                <div class="pull-left" style="display: flex; align-items: center;">
+                    <img height="30" alt="task icon" src="../../assets/img/ic_task_popup.svg">
+                    <div *ngIf="selectedTask.id" class="create-task" i18n="@@task">Tarea</div>
+                    <div *ngIf="!selectedTask.id" class="create-task" i18n="@@newTask">Nueva Tarea</div>
+                </div>
+                <form [formGroup]="taskForm" (ngSubmit)="onSubmit(taskForm.value)" class="modal-flex">
+
+
+                    <div class="form-group">
+                        <label for="title">
+                            TÍTULO
+                        </label>
+                        <input class=" form-control" id="title" type="text" formControlName="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">
+                            DESCRIPCIÓN
+                        </label>
+                        <textarea class="form-control" id="description" rows="5" formControlName="description"
+                                  required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">
+                            PRIORIDAD
+                        </label>
+                        <pg-select id="priority" formControlName="priority" ShowSearch
+                                   i18n-NotFoundContent="NotFoundContent" NotFoundContent="Sin resultados">
+                            <pg-option i18n-Label="@@lowPriority" Label="Prioridad baja" [Value]="taskPriority.LOW">
+                            </pg-option>
+                            <pg-option i18n-Label="@@mediumPriority" Label="Prioridad media"
+                                       [Value]="taskPriority.MEDIUM"></pg-option>
+                            <pg-option i18n-Label="@@highPriority" Label="Prioridad alta" [Value]="taskPriority.HIGH">
+                            </pg-option>
+                        </pg-select>
+                    </div>
+
+                    <div *ngIf="selectedTask.id" i18n="@@deleteTask" class="delete-label" (click)="openDeleteModal()">
+                        Eliminar tarea
+                    </div>
+
+                    <div class="buttons">
+                        <button i18n="@@cancel" class="btn btn-info-inverse btn-cons m-b-36" type="button"
+                                style="margin-top: 15px; border-color: #909090" (click)="createModal.hide()"
+                                [disabled]="isLoading">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-info btn-cons m-b-36" type="button" style="margin-top: 15px;"
+                                (click)="addEditTask()" [disabled]="isLoading || !taskForm.valid">
+                            <ng-container i18n="@@createInstructorTask" *ngIf="!selectedTask.id">Crear Tarea
+                            </ng-container>
+                            <ng-container i18n="@@saveInstructorTask" *ngIf="selectedTask.id">Guardar</ng-container>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<span i18n="@@instructorTaskDeletedMessage" style="display: none" #instructorTaskDeletedMessage>Tarea eliminada con éxito</span>

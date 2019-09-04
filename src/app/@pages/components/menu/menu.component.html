@@ -1,0 +1,44 @@
+<ul class="menu-items p-t-25" [perfectScrollbar]="config" [disabled]="isPerfectScrollbarDisabled">
+    <ng-container *ngFor="let item of menuItems">
+        <li *ngIf="!item.hideMenu" [class.open]="item.toggle ==='open'" >
+            <a  href="javascript:;" *ngIf="item.submenu;else singleLink" [routerLink]="[item.routerLink]" [class.detailed]="item.details">
+                <span class="title">{{ item.label }}</span>
+                <span  *ngIf="item.details" class="details">{{item.details}}</span>            
+            </a>
+            <ng-template #singleLink>
+            <a *ngIf="item.routerLink" [routerLink]="[item.routerLink]" [class.detailed]="item.details">
+                <span class="title">{{ item.label }}</span>
+                <span  *ngIf="item.details" class="details">{{item.details}}</span>
+            </a>
+            <a *ngIf="item.externalLink" href="{{item.externalLink}}" [attr.target]="item.target" [class.detailed]="item.details">
+                <span class="title">{{ item.label }}</span>
+                <span  *ngIf="item.details" class="details">{{item.details}}</span>
+            </a>
+            </ng-template>
+            <pg-menu-icon *ngIf="item.iconType" [IconType]="item.iconType" [IconName]="item.iconName" [ExtraClass]="item.thumbNailClass"></pg-menu-icon>
+            <ul class="sub-menu" *ngIf="item.submenu" [@toggleHeight]="item.toggle">
+                <li *ngFor="let child of item.submenu" [class.open]="child.toggle ==='open'">
+                    <a href="javascript:;" *ngIf="child.submenu;else singleLinkChild"><span class="title">{{ child.label }}</span>
+                        <span  *ngIf="child.submenu" class=" arrow" [class.open]="item.toggle ==='open'"></span>
+                    </a>
+                    <ng-template #singleLinkChild>
+                    <a *ngIf="child.routerLink" [routerLink]="[child.routerLink]"><span class="title">{{ child.label }} <span *ngIf="child.badge >= 1" class="red-badge">{{child.badge}}</span></span>
+                    </a>
+                    <a *ngIf="child.externalLink" href="{{child.externalLink}}" [attr.target]="item.target"><span class="title">{{ child.label }}</span>
+                    </a>
+                    <pg-menu-icon *ngIf="child.iconType" [IconType]="child.iconType" [IconName]="child.iconName"></pg-menu-icon>
+                    </ng-template>
+                    <ul class="sub-menu" *ngIf="child.submenu" [@toggleHeight]="child.toggle">
+                        <li *ngFor="let lvl2 of child.submenu">
+                            <a *ngIf="lvl2.routerLink" [routerLink]="[lvl2.routerLink]"><span class="title">{{ lvl2.label }}</span>
+                                <span  *ngIf="lvl2.submenu" class=" arrow" [class.open]="lvl2.toggle"></span>
+                            </a>
+                            <a *ngIf="lvl2.externalLink" [routerLink]="[lvl2.externalLink]"><span class="title">{{ item.label }}</span></a>
+                            <pg-menu-icon *ngIf="lvl2.iconType" [IconType]="lvl2.iconType" [IconName]="lvl2.iconName"></pg-menu-icon>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ng-container>
+</ul>

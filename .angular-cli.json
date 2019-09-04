@@ -1,0 +1,84 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "angular"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "app/@pages/styles","pages_ui/scss"
+        ]
+      },
+      "styles": [
+        "assets/plugins/bootstrap/css/bootstrap.min.css",
+        "assets/plugins/font-awesome/css/font-awesome.min.css",
+        "assets/plugins/codrops-stepsform/css/component.css",
+        "../node_modules/fullcalendar/dist/fullcalendar.css",
+        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+      ],
+      "scripts": [
+       "../node_modules/scrollreveal/dist/scrollreveal.js",
+       "../node_modules/echarts/dist/echarts.min.js",
+       "app/@pages/assets/javascript/pages.js",
+       "../node_modules/masonry-layout/dist/masonry.pkgd.min.js",
+       "../node_modules/isotope-layout/dist/isotope.pkgd.min.js",
+       "../node_modules/imagesloaded/imagesloaded.pkgd.js",
+       "assets/plugins/modernizr.custom.js",
+       "assets/plugins/codrops-stepsform/js/classie.js",
+       "assets/plugins/codrops-stepsform/js/stepsForm.js",
+       "assets/plugins/skycons/skycons.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "local": "environments/environment.local.ts",
+        "dev": "environments/environment.ts",
+        "stg": "environments/environment.stg.ts",
+        "prod": "environments/environment.prod.ts",
+        "testing": "environments/environment.testing.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {
+    }
+  }
+}

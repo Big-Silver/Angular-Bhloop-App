@@ -1,0 +1,312 @@
+<div id="quickview" class="quickview-wrapper" [class.open]=isOpen>
+<!-- Nav tabs -->
+<tabset>
+	<tab heading="Notes" id="quickview-notes" customClass="full-height">
+	  <div class="view-port clearfix quickview-notes" [class.push]="isNoteOpen" id="note-views">
+	    <!-- BEGIN Note List !-->
+	    <div class="view" id="quick-note-list">
+				<div class="full-height d-flex flex-column list">
+					<div class="toolbar clearfix">
+						<ul class="pull-right ">
+							<li>
+								<a class="delete-note-link" (click)="deleteMode()" [class.selected]="deleteNoteMode"><i class="fa fa-trash-o"></i></a>
+							</li>
+							<li>
+								<a class="new-note-link" (click)="composeNote()" [class.hide]="deleteNoteMode"><i class="fa fa-plus"></i></a>
+							</li>
+						</ul>
+						<button class="btn-remove-notes btn btn-xs btn-block" [class.hide]="!deleteNoteMode" (click)="deleteNote()"><i class="fa fa-times"></i> Delete</button>
+					</div>
+					<ul perfectScrollbar class="full-height">
+						<!-- BEGIN Note Item !-->
+						<li *ngFor="let note of noteList" (click)="onSelectNote(note)">
+							<div class="left">
+								<!-- BEGIN Note Action !-->
+								<div class="checkbox check-warning no-margin" [ngStyle]="deleteNoteMode && {'display': 'block'}">
+									<input id="qncheckbox{{note.id}}" type="checkbox" value="1" (change)="onCheck($event,note)">
+									<label for="qncheckbox{{note.id}}"></label>
+								</div>
+								<!-- END Note Action !-->
+								<!-- BEGIN Note Preview Text !-->
+								<p class="note-preview" [innerHTML]="note.notes"></p>
+								<!-- BEGIN Note Preview Text !-->
+							</div>
+							<!-- BEGIN Note Details !-->
+							<div class="right pull-right">
+								<!-- BEGIN Note Date !-->
+								<span class="date">{{note.date | date:'dd/MM/yy'}}</span>
+								<a href="javascript:void(0)"><i class="fa fa-chevron-right"></i></a>
+								<!-- END Note Date !-->
+							</div>
+							<!-- END Note Details !-->
+						</li>
+						<!-- END Note List !-->
+					</ul>
+				</div>
+	    </div>
+	    <!-- END Note List !-->
+	    <div class="view note" id="quick-note">
+					<div class="extra-component" *ngIf="selectedNote">
+							<div class="top">
+								<span>{{selectedNote.date | date:'dd LLLL yyyy'}}</span>
+							</div>
+					</div>
+					<quill-editor class="full-height full-width" placeholder="" [(ngModel)]="noteText">
+							<ul quill-editor-toolbar class="ql-toolbar ql-snow">
+									<li>
+										<button (click)="toggleNotesView()" class="close-note-link"><i class="pg pg-arrow_left"></i></button>
+									</li>
+								<li class="ql-formats">
+										<button class="ql-bold" [title]="'Bold'"></button>
+								</li>
+								<li class="ql-formats">
+										<button class="ql-italic" [title]="'Italic'"></button>
+								</li>
+								<li class="ql-formats">
+										<button class="ql-link" [title]="'Link'"></button>
+								</li>
+							</ul>
+						</quill-editor>
+	    </div>
+	  </div>
+		
+	</tab>
+	<tab heading="Alerts" id="quickview-alerts" customClass="full-height">
+	  <div class="view-port clearfix" id="alerts">
+	    <!-- BEGIN Alerts View !-->
+	    <div class="view bg-white">
+				<div class="full-height d-flex flex-column">
+					<!-- BEGIN View Header !-->
+					<div class="navbar navbar-default navbar-sm">
+						<div class="navbar-inner">
+							<!-- BEGIN Header Controler !-->
+							<a href="javascript:;" class="inline action p-l-10 link text-master" data-navigate="view" data-view-port="#chat" data-view-animation="push-parrallax">
+								<i class="pg pg-more"></i>
+							</a>
+							<!-- END Header Controler !-->
+							<div class="view-heading">
+								Notications
+							</div>
+							<!-- BEGIN Header Controler !-->
+							<a href="javascript:void(0)" class="inline action p-r-10 pull-right link text-master">
+								<i class="pg pg-search"></i>
+							</a>
+							<!-- END Header Controler !-->
+						</div>
+					</div>
+					<!-- END View Header !-->
+					<!-- BEGIN Alert List !-->
+					<div perfectScrollbar class="full-height list-view boreded no-top-border">
+						<!-- BEGIN List Group !-->
+						<div class="list-view-group-container">
+							<!-- BEGIN List Group Header!-->
+							<div class="list-view-group-header text-uppercase">
+								Calendar
+							</div>
+							<!-- END List Group Header!-->
+							<ul>
+								<!-- BEGIN List Group Item!-->
+								<li class="alert-list">
+									<!-- BEGIN Alert Item Set Animation using data-view-animation !-->
+									<a href="javascript:;" class="align-items-center" data-navigate="view" data-view-port="#chat" data-view-animation="push-parrallax">
+										<p class="">
+											<span class="text-warning fs-10"><i class="fa fa-circle"></i></span>
+										</p>
+										<p class="p-l-10 overflow-ellipsis fs-12">
+											<span class="text-master">David Nester Birthday</span>
+										</p>
+										<p class="p-r-10 ml-auto fs-12 text-right">
+											<span class="text-warning">Today <br></span>
+											<span class="text-master">All Day</span>
+										</p>
+									</a>
+									<!-- END Alert Item!-->
+									<!-- BEGIN List Group Item!-->
+								</li>
+								<!-- END List Group Item!-->
+								<!-- BEGIN List Group Item!-->
+								<li class="alert-list">
+									<!-- BEGIN Alert Item Set Animation using data-view-animation !-->
+									<a href="javascript:void(0)" class="align-items-center" data-navigate="view" data-view-port="#chat" data-view-animation="push-parrallax">
+										<p class="">
+											<span class="text-warning fs-10"><i class="fa fa-circle"></i></span>
+										</p>
+										<p class="p-l-10 overflow-ellipsis fs-12">
+											<span class="text-master">Meeting at 2:30</span>
+										</p>
+										<p class="p-r-10 ml-auto fs-12 text-right">
+											<span class="text-warning">Today</span>
+										</p>
+									</a>
+									<!-- END Alert Item!-->
+								</li>
+								<!-- END List Group Item!-->
+							</ul>
+						</div>
+						<!-- END List Group !-->
+						<div class="list-view-group-container">
+							<!-- BEGIN List Group Header!-->
+							<div class="list-view-group-header text-uppercase">
+								Social
+							</div>
+							<!-- END List Group Header!-->
+							<ul>
+								<!-- BEGIN List Group Item!-->
+								<li class="alert-list">
+									<!-- BEGIN Alert Item Set Animation using data-view-animation !-->
+									<a href="javascript:;" class="p-t-10 p-b-10 align-items-center" data-navigate="view" data-view-port="#chat" data-view-animation="push-parrallax">
+										<p class="">
+											<span class="text-complete fs-10"><i class="fa fa-circle"></i></span>
+										</p>
+										<p class="col overflow-ellipsis fs-12 p-l-10">
+											<span class="text-master link">Jame Smith commented on your status<br></span>
+											<span class="text-master">“Perfection Simplified - Company Revox"</span>
+										</p>
+									</a>
+									<!-- END Alert Item!-->
+								</li>
+								<!-- END List Group Item!-->
+								<!-- BEGIN List Group Item!-->
+								<li class="alert-list">
+									<!-- BEGIN Alert Item Set Animation using data-view-animation !-->
+									<a href="javascript:;" class="p-t-10 p-b-10 align-items-center" data-navigate="view" data-view-port="#chat" data-view-animation="push-parrallax">
+										<p class="">
+											<span class="text-complete fs-10"><i class="fa fa-circle"></i></span>
+										</p>
+										<p class="col overflow-ellipsis fs-12 p-l-10">
+											<span class="text-master link">Jame Smith commented on your status<br></span>
+											<span class="text-master">“Perfection Simplified - Company Revox"</span>
+										</p>
+									</a>
+									<!-- END Alert Item!-->
+								</li>
+								<!-- END List Group Item!-->
+							</ul>
+						</div>
+						<div class="list-view-group-container">
+							<!-- BEGIN List Group Header!-->
+							<div class="list-view-group-header text-uppercase">
+								Sever Status
+							</div>
+							<!-- END List Group Header!-->
+							<ul>
+								<!-- BEGIN List Group Item!-->
+								<li class="alert-list">
+									<!-- BEGIN Alert Item Set Animation using data-view-animation !-->
+									<a href="javascript:void(0)" class="p-t-10 p-b-10 align-items-center" data-navigate="view" data-view-port="#chat" data-view-animation="push-parrallax">
+										<p class="">
+											<span class="text-danger fs-10"><i class="fa fa-circle"></i></span>
+										</p>
+										<p class="col overflow-ellipsis fs-12 p-l-10">
+											<span class="text-master link">12:13AM GTM, 10230, ID:WR174s<br></span>
+											<span class="text-master">Server Load Exceeted. Take action</span>
+										</p>
+									</a>
+									<!-- END Alert Item!-->
+								</li>
+								<!-- END List Group Item!-->
+							</ul>
+						</div>
+					</div>
+					<!-- END Alert List !-->
+				</div>
+	    </div>
+	    <!-- EEND Alerts View !-->
+	  </div>
+	</tab>
+	<tab heading="Chat" id="quickview-chat" active="true" customClass="full-height"> 
+	  <div class="view-port clearfix" id="chat">
+	    <div class="view bg-white">
+	      <!-- BEGIN View Header !-->
+	      <div class="navbar navbar-default">
+	        <div class="navbar-inner">
+	          <!-- BEGIN Header Controler !-->
+	          <a href="javascript:;" class="inline action p-l-10 link text-master"  pg-view-trigger parentView="chat" animationType="push-parrallax">
+	            <i class="pg pg-plus"></i>
+	          </a>
+	          <!-- END Header Controler !-->
+	          <div class="view-heading">
+	            Chat List
+	            <div class="fs-11">Show All</div>
+	          </div>
+	          <!-- BEGIN Header Controler !-->
+	          <a href="javascript:void(0)" class="inline action p-r-10 pull-right link text-master">
+	            <i class="pg pg-more"></i>
+	          </a>
+	          <!-- END Header Controler !-->
+	        </div>
+	      </div>
+	      <!-- END View Header !-->
+	      <pg-list-view-container class="scrollable full-height">
+						<pg-list-item *ngFor="let group of userList">
+								<ng-template #ItemHeading>
+										{{group.group}}
+								</ng-template>
+							<li class="chat-user-list clearfix"  *ngFor="let user of group.users">
+								<a pg-view-trigger parentView="chat" animationType="push-parrallax">
+										<span class="thumbnail-wrapper d32 circular bg-success">
+												<img width="34" height="34" alt="" src="{{user.img}}" class="col-top">
+										</span>
+										<p class="p-l-10 ">
+											<span class="text-master">{{user.username}}</span>
+											<span class="block text-master hint-text fs-12">{{user.lastMessage}}</span>
+										</p>
+									</a>
+								</li>
+						</pg-list-item>
+				</pg-list-view-container>
+	    </div>
+	    <!-- BEGIN Conversation View  !-->
+	    <div class="view chat-view bg-white clearfix">
+	      <!-- BEGIN Header  !-->
+	      <div class="navbar navbar-default">
+	        <div class="navbar-inner" *ngIf="chatHistory">
+	          <a href="javascript:;" class="link text-master inline action p-l-10 p-r-10" pg-view-trigger parentView="chat" animationType="push-parrallax">
+	            <i class="pg pg-arrow_left"></i>
+	          </a>
+	          <div class="view-heading">
+	            {{chatHistory.username}}
+	            <div class="fs-11 hint-text">{{chatHistory.status}}</div>
+	          </div>
+	          <a href="javascript:void(0)" class="link text-master inline action p-r-10 pull-right ">
+	            <i class="pg pg-more"></i>
+	          </a>
+	        </div>
+	      </div>
+	      <!-- END Header  !-->
+	      <!-- BEGIN Conversation  !-->
+	      <div class="chat-inner" perfectScrollbar #chatHistoryWrapper>
+	        <!-- BEGIN Message  !-->
+	        <div class="message clearfix"  *ngFor="let message of chatHistory?.log">
+						<div class="profile-img-wrapper m-t-5 inline" *ngIf="message.from != 'me'">
+							<img class="col-top" width="30" height="30" src="{{chatHistory.img}}" alt="">
+						</div>
+						<div class="chat-bubble from-them"  [class.from-me]="message.from == 'me'" [class.from-them]="message.from != 'me'">
+							{{message.message}}
+						</div>
+	        </div>
+	        <!-- END Message  !-->
+	      </div>
+	      <!-- BEGIN Conversation  !-->
+	      <!-- BEGIN Chat Input  !-->
+	      <div class="b-t b-grey bg-white clearfix p-l-10 p-r-10">
+	        <div class="row">
+	          <div class="col-1 p-t-15">
+	            <a href="javascript:void(0)" class="link text-master"><i class="fa fa-plus-circle"></i></a>
+	          </div>
+	          <div class="col-8 no-padding">
+	            <input type="text" class="form-control chat-input" [(ngModel)]="userMessage" (keypress)="onMessageKeyPress($event)" placeholder="Say something">
+	          </div>
+	          <div class="col-2 link text-master m-l-10 m-t-15 p-l-10 b-l b-grey col-top">
+	            <a href="javascript:void(0)" class="link text-master"><i class="pg pg-camera"></i></a>
+	          </div>
+	        </div>
+	      </div>
+	      <!-- END Chat Input  !-->
+	    </div>
+	    <!-- END Conversation View  !-->
+	  </div>
+	</tab>
+</tabset>
+<a class="btn-link quickview-toggle" (click)="toggle()"><i class="pg pg-close"></i></a>
+</div>

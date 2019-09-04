@@ -1,0 +1,47 @@
+::ng-deep .page-content-wrapper {
+    height: 100%;
+}
+
+::ng-deep .page-content-wrapper .content {
+    height: 100%;
+}
+
+::ng-deep .ps__rail-x {
+    top: unset !important;
+    bottom: 15px !important;
+    opacity: 1;
+    margin-left: 28px;
+    margin-right: 28px;
+    background-color: #E7E7E7 !important;
+    height: 15px !important;
+    border-radius: 15px !important;
+}
+
+::ng-deep .ps__thumb-x {
+    height: 15px !important;
+    background-color: rgba(35, 35, 35, 0.67) !important;
+    border-radius: 15px !important;
+    bottom: 0px !important;
+}
+
+::ng-deep .ps__rail-y {
+    opacity: 1;
+    background-color: #E7E7E7 !important;
+    width: 10px !important;
+    border-radius: 8.5px !important;
+}
+
+::ng-deep .ps__thumb-y {
+    width: 10px !important;
+    background-color: rgba(35, 35, 35, 0.67) !important;
+    border-radius: 8.5px !important;
+    right: 0px !important;
+}
+
+::ng-deep .cdk-overlay-container{
+    z-index: 1100 !important;
+}
+
+::ng-deep .dropdown-menu {
+    padding: 0;
+}

@@ -1,0 +1,14 @@
+<div style="display: flex; flex-direction: column;">
+
+    <pg-breadcrumb>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a i18n="@@home">INICIO</a></li>
+            <li *ngFor="let item of path; let last = last" class="breadcrumb-item" [class.active]="last"><a>{{item}}</a></li>
+        </ol>
+    </pg-breadcrumb>
+
+    <div id="title">
+        {{title}}
+    </div>
+
+</div>

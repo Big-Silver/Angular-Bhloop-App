@@ -1,0 +1,50 @@
+/* This is a compiled file, you should be editing the file in the templates directory */
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #10cfbd;
+  height: 3px;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+}
+
+.pace .pace-activity {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  border: solid 2px transparent;
+  border-top-color: #22df80;
+  border-left-color: #22df80;
+  border-radius: 10px;
+  -webkit-animation: pace-spinner 400ms linear infinite;
+  -moz-animation: pace-spinner 400ms linear infinite;
+  -ms-animation: pace-spinner 400ms linear infinite;
+  -o-animation: pace-spinner 400ms linear infinite;
+  animation: pace-spinner 400ms linear infinite;
+  -webkit-animation: none;
+  animation: none;
+  top: 73px;
+  background: url(progress-circle-success.svg) no-repeat top left;
+  background-size: 100% auto;
+  margin: 0 auto;
+  border-width: 0;
+  border-radius: 0;
+  width: 28px;
+  height: 40px;
+  right: 19px;
+  left: auto;
+}
+

@@ -1,0 +1,68 @@
+//Extra styles
+.quickview-wrapper{
+    quill-editor{
+        display: table;
+        height: 100%;
+        width: 100%;
+        .ql-toolbar.ql-snow{
+            background:#fcfcfa;
+            height:35px;
+            width:100%;
+            box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.33);
+            button{
+                width: 39px;
+                padding: 0;
+                transition: all .2s ease;
+                svg{
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+                &:hover{
+                    background-color: #fffaf6;
+                    .ql-stroke{
+                        stroke:#a5a5a5;
+                    }
+                }
+                &.ql-active{
+                    background-color: #fffaf6;
+                }
+            }
+            .close-note-link{
+                text-align: center;
+                color:#a5a5a5;
+                i{
+                    padding-top: 10px;
+                }
+            }
+            .ql-formats{
+                height: 35px;
+            }
+            li{
+                border-right: 1px solid #edecec;
+                width: 40px;
+                margin:0;
+                padding: 0;
+            }
+            .ql-stroke{
+                stroke:#a5a5a5;
+            }
+        }
+    }
+    
+    .ql-editor{
+        padding: 51px 20px 0 45px;
+        font-size: 12px;
+    }
+    .extra-component{
+        position: absolute;
+        top: 51px;
+        text-align: center;
+        .top{
+            span{
+                font-style: italic;
+                color: #b0b0a8;
+                font-size: 11px;
+            }
+        }
+    }
+}
