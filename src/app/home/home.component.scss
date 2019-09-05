@@ -5,10 +5,6 @@
   height: 100%;
   display: flex;
 
-  #my-tasks {
-    flex-basis: 66%;
-  }
-
   .active-clients {
     flex-basis: 33%;
   }
@@ -312,4 +308,16 @@
   color: #e20714;
   font-size: 14px;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 992px) {
+  #my-list, #my-tasks, #my-description {
+    height: 100%
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  #my-list, #my-tasks, #my-description {
+    height: 50%
+  }
 }
