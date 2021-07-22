@@ -64,7 +64,7 @@
     "scrollreveal": "^3.3.6",
     "text-mask-addons": "^3.8.0",
     "web-animations-js": "^2.3.1",
-    "xlsx": "^0.14.1",
+    "xlsx": "^0.17.0",
     "zone.js": "0.8.20"
   },
   "devDependencies": {
